@@ -15,6 +15,7 @@ public class UserController : Controller
         _userService = userService;
     }
 
+
     [HttpPost]
     public async Task<IActionResult> CreateUserAsync(CreateUserRequest request)
     {
@@ -22,24 +23,38 @@ public class UserController : Controller
         return Ok(response);
     }
 
-    [HttpGet]
+    [HttpGet("GetByEmailAddress")]
     public async Task<IActionResult> GetUserByEmailAddressAsync(string emailAddress, string password)
     {
-        var response = await _userService.GetUserByEmailAddressAsync(emailAddress, password);
+        var response = await _userService.GetUserByEmailAddressAsync(
+            new LogInByEmailAddressUserRequest 
+            { 
+            EmailAddress = emailAddress, Password = password
+            });
         return Ok(response);
     }
 
-    [HttpGet("Phone")]
+    [HttpGet("GetByPhoneNumber")]
     public async Task<IActionResult> GetUserByPhoneNumberAsync(string phoneNumber, string password)
     {
-        var response = await _userService.GetUserByPhoneNumberAsync(phoneNumber, password);
+        var response = await _userService.GetUserByPhoneNumberAsync(
+            new LogInByPhoneNumberUserRequest
+            {
+                PhoneNumber = phoneNumber, 
+                Password = password
+            });
         return Ok(response);
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateUserAsync(UpdateUserRequest request)
+    [HttpPut("{userAuthData}, {newPassword}")]
+    public async Task<IActionResult> UpdateUserAsync(string userAuthData, string newPassword)
     {
-        var result = await _userService.UpdateUserAsync(request);
+        var result = await _userService.UpdateUserAsync(
+            new UpdateUserRequest
+            {
+                UserAuthData = userAuthData,
+                NewPassword = newPassword
+            });
         return Ok(result);
     }
 }

@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Registration.Models.Requests;
 
-public class UpdateUserRequest
+public class LogInByPhoneNumberUserRequest
 {
-    [NotNull]
-    public string UserAuthData { get; set; }
+    [PhoneNumberValidator]
+    public required string PhoneNumber { get; set; }
 
     [NotNull, MinLength(5, ErrorMessage = "Minimal length of password is 5 !!!")]
-    public required string NewPassword { get; set; }
+    public required string Password { get; set; }
 }

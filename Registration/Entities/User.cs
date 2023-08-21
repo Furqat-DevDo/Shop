@@ -10,8 +10,9 @@ public class User
     public int Id { get; set; }
     public string FullName { get; set; }
     public string EmailAddress { get; set; }
+    public string PhoneNumber { get; set; }
     public string Password { get; set; }
-    public DateTime DateTime { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedTime { get; set; }
 
     [DefaultValue(false)]
