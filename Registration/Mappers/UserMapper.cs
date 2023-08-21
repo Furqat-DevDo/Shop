@@ -1,7 +1,7 @@
-﻿using Registration.Entities;
-using Registration.Helpers;
+﻿using Registration.Helpers;
 using Registration.Models.Requests;
 using Registration.Models.Responces;
+using Shop.Core.Entities;
 
 namespace Registration.Mappers;
 

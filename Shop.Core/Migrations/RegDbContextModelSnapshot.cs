@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Registration.Data;
+using Shop.Core.Data;
 
 #nullable disable
 
-namespace Registration.Migrations
+namespace Shop.Core.Migrations
 {
     [DbContext(typeof(RegDbContext))]
     partial class RegDbContextModelSnapshot : ModelSnapshot
@@ -17,12 +17,12 @@ namespace Registration.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Registration.Entities.User", b =>
+            modelBuilder.Entity("Shop.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

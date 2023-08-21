@@ -1,7 +1,7 @@
 using EfCore.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Registration;
-using Registration.Data;
+using Shop.Core.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

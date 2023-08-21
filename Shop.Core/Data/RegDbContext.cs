@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Registration.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Shop.Core.Entities;
 
-namespace Registration.Data;
+namespace Shop.Core.Data;
 
 public class RegDbContext : DbContext
 {
@@ -13,7 +12,7 @@ public class RegDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.EnableSensitiveDataLogging(true);
+        //optionsBuilder.EnableSensitiveDataLogging(true);
         //optionsBuilder.LogTo(s =>Console.WriteLine(s));
     }
 
