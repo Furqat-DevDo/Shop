@@ -6,7 +6,7 @@ namespace Registration.Models.Requests;
 
 public class LogInByEmailAddressUserRequest
 {
-    [EmailValidator]
+    [EmailAddress]
     public required string EmailAddress { get; set; }
 
     [MinLength(5, ErrorMessage = "Minimal length of password is 5 !!!")]

@@ -6,7 +6,7 @@ namespace Registration.Models.Requests;
 
 public class LogInByPhoneNumberUserRequest
 {
-    [PhoneNumberValidator]
+    [Phone]
     public required string PhoneNumber { get; set; }
 
     [NotNull, MinLength(5, ErrorMessage = "Minimal length of password is 5 !!!")]

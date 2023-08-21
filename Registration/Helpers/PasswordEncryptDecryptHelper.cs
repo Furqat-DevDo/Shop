@@ -9,12 +9,10 @@ public static class PasswordEncryptDecryptHelper
 
     static PasswordEncryptDecryptHelper()
     {
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            byte[] key = new byte[32];
-            rng.GetBytes(key);
-            encryptionKey = key;
-        }
+        using var rng = new RNGCryptoServiceProvider();
+        byte[] key = new byte[32];
+        rng.GetBytes(key);
+        encryptionKey = key;
     }
 
     public static string EncryptPassword(string password)
