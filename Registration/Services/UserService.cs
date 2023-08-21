@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Registration.Data;
 using Registration.Exceptions;
 using Registration.Mappers;
 using Registration.Models.Requests;
 using Registration.Models.Responces;
 using Registration.Services.Interfaces;
+using Shop.Core.Data;
 
 namespace Registration.Services;
 
