@@ -4,6 +4,7 @@ using Registration.Mappers;
 using Registration.Models.Requests;
 using Registration.Models.Responces;
 using Registration.Services.Interfaces;
+using Shop.Application.Models.Requests;
 using Shop.Core.Data;
 
 namespace Registration.Services;
@@ -55,7 +56,7 @@ public class UserService : IUserService
         return user.ResponseUser();
     }
 
-    public async Task<GetUserResponse> UpdateUserAsync(UpdateUserRequest request)
+    public async Task<GetUserResponse> UpdateUserPasswordAsync(UpdateUserPasswordRequest request)
     {
         var user = await _dbContext.Users
             .FirstOrDefaultAsync(f => f.FullName == request.UserAuthData ||
@@ -63,9 +64,31 @@ public class UserService : IUserService
                                  f.PhoneNumber == request.UserAuthData );
 
         if (user is null)
-            throw new UserNotFoundException($"No such user : {request.UserAuthData}");
+            throw new InvalidDataGivenException($"Invalid data. No user with such data. Please Enter Again !!!");
 
         user.UpdateUserPassword(request);
+        _dbContext.Users.Update(user);
+
+        if (await _dbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveUserChangesException("Internal Server Error");
+
+        return user.ResponseUser();
+    }
+
+    public async Task<GetUserResponse> UpdateUserAuthDataAsync(UpdateUserAuthDataRequest request)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(f => f.FullName == request.UserAuthData ||
+                                 f.EmailAddress == request.UserAuthData ||
+                                 f.PhoneNumber == request.UserAuthData);
+
+        if (user is null)
+            throw new InvalidDataGivenException($"Invalid data. No user with such data. Please Enter Again !!!");
+
+        if (!user.CheckPassword(request.Password))
+            throw new InvalidDataGivenException($"Given password is incorrect. Please enter again !!!"); ;
+
+        user.UpdateUserAuthData(request);
         _dbContext.Users.Update(user);
 
         if (await _dbContext.SaveChangesAsync() <= 0)
