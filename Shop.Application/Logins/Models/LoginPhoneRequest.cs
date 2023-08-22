@@ -1,10 +1,9 @@
 ﻿using Registration.Attributes;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
-namespace Registration.Models.Requests;
+namespace Shop.Application.Logins.Models;
 
-public class LogInByPhoneNumberUserRequest
+public class LoginPhoneRequest
 {
     [Phone]
     public required string PhoneNumber { get; set; }

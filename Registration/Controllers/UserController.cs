@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Registration.Models.Requests;
-using Registration.Services.Interfaces;
-using Shop.Application.Models.Requests;
+using Shop.Application.Logins.Models;
+using Shop.Application.Logins.Services;
+using Shop.Application.Registrations.Services;
+using Shop.Application.Users.Requests;
+using Shop.Application.Users.Services;
 
 namespace Registration.Controllers;
 
@@ -9,70 +11,48 @@ namespace Registration.Controllers;
 [ApiController]
 public class UserController : Controller
 {
-    private readonly IUserService _userService;
-
-    public UserController(IUserService userService)
-    {
-        _userService = userService;
-    }
-
-
     [HttpPost]
-    public async Task<IActionResult> CreateUserAsync(CreateUserRequest request)
+    public async Task<IActionResult> CreateUserAsync(
+        CreateUserRequest request,
+        [FromServices] IRegistrationService registrationService)
     {
-        var response = await _userService.CreateUserAsync(request);
+        var response = await registrationService.CreateUserAsync(request);
         return Ok(response);
     }
 
     [HttpGet("GetByEmailAddress")]
-    public async Task<IActionResult> GetUserByEmailAddressAsync(string emailAddress, string password)
+    public async Task<IActionResult> GetUserByEmailAddressAsync(
+        [FromQuery]LoginByEmail LoginRequest,
+        [FromServices] ILoginService loginService)
     {
-        var response = await _userService.GetUserByEmailAddressAsync(
-            new LogInByEmailAddressUserRequest 
-            { 
-            EmailAddress = emailAddress, Password = password
-            });
+        var response = await loginService.GetUserByEmailAddressAsync(LoginRequest);
         return Ok(response);
     }
 
     [HttpGet("GetByPhoneNumber")]
-    public async Task<IActionResult> GetUserByPhoneNumberAsync(string phoneNumber, string password)
+    public async Task<IActionResult> GetUserByPhoneNumberAsync(
+        [FromQuery]LoginPhoneRequest phoneRequest,
+        [FromServices] ILoginService loginService)
     {
-        var response = await _userService.GetUserByPhoneNumberAsync(
-            new LogInByPhoneNumberUserRequest
-            {
-                PhoneNumber = phoneNumber, 
-                Password = password
-            });
+        var response = await loginService.GetUserByPhoneNumberAsync(phoneRequest);
         return Ok(response);
     }
 
     [HttpPut("UpdateUserPassword")]
-    public async Task<IActionResult> UpdateUserPasswordAsync(string userAuthData, string newPassword)
+    public async Task<IActionResult> UpdateUserPasswordAsync(
+        UpdateUserPassRequest passRequest,
+        [FromServices]IUserService userService)
     {
-        var result = await _userService.UpdateUserPasswordAsync(
-            new UpdateUserPasswordRequest
-            {
-                UserAuthData = userAuthData,
-                NewPassword = newPassword
-            });
+        var result = await userService.UpdateUserPasswordAsync(passRequest);
         return Ok(result);
     }
 
     [HttpPut("UpdateUserAuthData")]
-    public async Task<IActionResult> UpdateUserAuthDataAsync(string userAuthData, 
-                                                             string password, 
-                                                             string nameOfAuthData,
-                                                             string newAuthData)
+    public async Task<IActionResult> UpdateUserAuthDataAsync(
+        UpdateUserRequest userRequest,
+        [FromServices] IUserService userService)
     {
-        var result = await _userService.UpdateUserAuthDataAsync(
-            new UpdateUserAuthDataRequest
-            {
-                UserAuthData = userAuthData,
-                Password = password,
-                NameOfUserAuthData = nameOfAuthData,
-                NewUserAuthData = newAuthData
-            });
+        var result = await userService.UpdateUserAuthDataAsync(userRequest);
         return Ok(result);
     }
 }

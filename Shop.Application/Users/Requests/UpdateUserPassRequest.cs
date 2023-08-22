@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Registration.Models.Requests;
+namespace Shop.Application.Users.Requests;
 
-public class UpdateUserPasswordRequest
+public class UpdateUserPassRequest
 {
     [NotNull]
-    public string UserAuthData { get; set; }
+    public required string UserAuthData { get; set; }
 
     [PasswordValidator]
     [Display(Name = "Password")]

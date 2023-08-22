@@ -23,6 +23,9 @@ public class RegDbContext : DbContext
         modelBuilder.Entity<User>(u =>
         {
             u.HasQueryFilter(f => f.IsDeleted != true);
+
+            u.HasIndex(u => u.EmailAddress).IsUnique(true);
+            u.HasIndex(u => u.PhoneNumber).IsUnique(true);
         });
     }
 

@@ -16,8 +16,7 @@ public class PasswordValidator : ValidationAttribute
         if(strValue.Length < 5)
             return false;
 
-        string pattern = @"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$";
-        Regex regex = new Regex(pattern);
+        Regex regex = new Regex(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$",RegexOptions.Compiled);
         return regex.IsMatch(strValue);
     }
 

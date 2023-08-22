@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Registration.Models.Requests;
+namespace Shop.Application.Logins.Models;
 
-public class LogInByEmailAddressUserRequest
+public class LoginByEmail
 {
     [EmailAddress]
     public required string EmailAddress { get; set; }

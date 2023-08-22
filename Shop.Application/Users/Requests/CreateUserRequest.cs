@@ -1,7 +1,7 @@
 ﻿using Registration.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Registration.Models.Requests;
+namespace Shop.Application.Users.Requests;
 
 public class CreateUserRequest
 {

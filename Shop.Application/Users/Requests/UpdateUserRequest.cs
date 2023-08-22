@@ -1,9 +1,10 @@
 ﻿using Registration.Attributes;
+using Shop.Application.Models.Requests;
 using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Application.Models.Requests;
+namespace Shop.Application.Users.Requests;
 
-public partial class UpdateUserAuthDataRequest
+public class UpdateUserRequest
 {
     public required string UserAuthData { get; set; }
 
@@ -13,6 +14,6 @@ public partial class UpdateUserAuthDataRequest
 
     [EnumDataType(typeof(EFixedStrings), ErrorMessage = "Invalid fixed string value.")]
     public required string NameOfUserAuthData { get; set; }
-    
+
     public required string NewUserAuthData { get; set; }
 }

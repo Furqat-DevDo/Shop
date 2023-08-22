@@ -1,11 +1,10 @@
 ﻿using Registration.Helpers;
-using Registration.Models.Requests;
-using Registration.Models.Responces;
 using Registration.Services;
-using Shop.Application.Models.Requests;
+using Shop.Application.Users.Requests;
+using Shop.Application.Users.Responces;
 using Shop.Core.Entities;
 
-namespace Registration.Mappers;
+namespace Shop.Application.Users.Mappers;
 
 public static class UserMapper
 {
@@ -16,7 +15,6 @@ public static class UserMapper
             FullName = user.FullName,
             EmailAddress = user.EmailAddress,
             PhoneNumber = user.PhoneNumber,
-            Password = user.Password,
             CreatedTime = user.CreatedTime,
             UpdatedTime = user.UpdatedTime
         };
@@ -30,13 +28,13 @@ public static class UserMapper
             Password = PasswordHashingHelper.HashSHA1Password(request.Password)
         };
 
-    public static void UpdateUserPassword(this User user, UpdateUserPasswordRequest request)
+    public static void UpdateUserPassword(this User user, UpdateUserPassRequest request)
     {
         user.Password = PasswordHashingHelper.HashSHA1Password(request.NewPassword);
         user.UpdatedTime = DateTime.UtcNow;
     }
 
-    public static void UpdateUserAuthData(this User user, UpdateUserAuthDataRequest request)
+    public static void UpdateUserAuthData(this User user, UpdateUserRequest request)
     {
         switch (request.NameOfUserAuthData)
         {

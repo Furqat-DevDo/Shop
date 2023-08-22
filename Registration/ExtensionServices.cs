@@ -1,6 +1,6 @@
 ﻿using EfCore.Middlewares;
-using Registration.Services;
-using Registration.Services.Interfaces;
+using Shop.Application.Logins.Services;
+using Shop.Application.Registrations.Services;
 using System.Reflection;
 
 namespace Registration;
@@ -9,7 +9,9 @@ public static class ExtensionServices
 {
     public static IServiceCollection AddMyServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
+        services.AddScoped<ILoginService,LoginService>();
+
         services.AddTransient<GlobalExceptionHandlingMiddleWare>();
 
 
