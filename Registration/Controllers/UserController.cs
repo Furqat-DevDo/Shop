@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Registration.Models.Requests;
 using Registration.Services.Interfaces;
+using Shop.Application.Models.Requests;
 
 namespace Registration.Controllers;
 
@@ -46,14 +47,31 @@ public class UserController : Controller
         return Ok(response);
     }
 
-    [HttpPut("{userAuthData}, {newPassword}")]
-    public async Task<IActionResult> UpdateUserAsync(string userAuthData, string newPassword)
+    [HttpPut("UpdateUserPassword")]
+    public async Task<IActionResult> UpdateUserPasswordAsync(string userAuthData, string newPassword)
     {
-        var result = await _userService.UpdateUserAsync(
-            new UpdateUserRequest
+        var result = await _userService.UpdateUserPasswordAsync(
+            new UpdateUserPasswordRequest
             {
                 UserAuthData = userAuthData,
                 NewPassword = newPassword
+            });
+        return Ok(result);
+    }
+
+    [HttpPut("UpdateUserAuthData")]
+    public async Task<IActionResult> UpdateUserAuthDataAsync(string userAuthData, 
+                                                             string password, 
+                                                             string nameOfAuthData,
+                                                             string newAuthData)
+    {
+        var result = await _userService.UpdateUserAuthDataAsync(
+            new UpdateUserAuthDataRequest
+            {
+                UserAuthData = userAuthData,
+                Password = password,
+                NameOfUserAuthData = nameOfAuthData,
+                NewUserAuthData = newAuthData
             });
         return Ok(result);
     }

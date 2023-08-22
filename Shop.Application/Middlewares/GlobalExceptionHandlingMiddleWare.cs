@@ -1,18 +1,14 @@
 ﻿using EfCore.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Registration.Exceptions;
 using System.Net;
+using System.Text.Json;
 
 namespace EfCore.Middlewares;
 
 public class GlobalExceptionHandlingMiddleWare : IMiddleware
 {
-    private readonly ILogger<GlobalExceptionHandlingMiddleWare> _logger;
-
-    public GlobalExceptionHandlingMiddleWare(ILogger<GlobalExceptionHandlingMiddleWare> logger)
-    {
-        _logger = logger;
-    }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -21,10 +17,8 @@ public class GlobalExceptionHandlingMiddleWare : IMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
             await HandleExceptionAsync(context, ex);
-        }
-        
+        } 
     }
 
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -52,7 +46,8 @@ public class GlobalExceptionHandlingMiddleWare : IMiddleware
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 break;
         }
-      
-        return context.Response.WriteAsJsonAsync(problemDetails);
+
+        var json = JsonSerializer.Serialize(problemDetails);
+        return context.Response.WriteAsync(json);
     }
 }

@@ -9,6 +9,7 @@ public class LogInByPhoneNumberUserRequest
     [Phone]
     public required string PhoneNumber { get; set; }
 
-    [NotNull, MinLength(5, ErrorMessage = "Minimal length of password is 5 !!!")]
+    [PasswordValidator]
+    [Display(Name = "Password")]
     public required string Password { get; set; }
 }

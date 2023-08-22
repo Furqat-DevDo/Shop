@@ -1,14 +1,20 @@
 ﻿using Registration.Attributes;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Registration.Models.Requests;
 
-public class LogInByEmailAddressUserRequest
+public class CreateUserRequest
 {
+    [NameValidator]
+    public required string FullName { get; set; }
+
     [EmailAddress]
     public required string EmailAddress { get; set; }
 
-    [MinLength(5, ErrorMessage = "Minimal length of password is 5 !!!")]
+    [PhoneNumberValidator]
+    public required string PhoneNumber { get; set; }
+
+    [PasswordValidator]
+    [Display(Name = "Password")]
     public required string Password { get; set; }
 }
