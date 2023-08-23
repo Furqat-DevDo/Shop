@@ -15,7 +15,7 @@ public class EmailSender : IEmailSender
     }
     public async Task SendEmailAsync(string email)
     {
-        var sendResult = await _client.SendAsync(email);
+        //var sendResult = await _client.SendAsync(email);
 
         throw new NotImplementedException();
     }

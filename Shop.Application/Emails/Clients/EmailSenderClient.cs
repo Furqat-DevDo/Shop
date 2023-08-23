@@ -32,6 +32,7 @@ public class EmailSenderClient : ISenderClient
             var body = await response.Content.ReadAsStringAsync();
             Console.WriteLine(body);
         }
+
         throw new NotImplementedException();
     }
 }
