@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Application.Emails.Models;
+using Shop.Application.Emails.Services;
 using Shop.Application.Logins.Models;
 using Shop.Application.Logins.Services;
 using Shop.Application.Registrations.Services;
@@ -54,5 +56,12 @@ public class UserController : Controller
     {
         var result = await userService.UpdateUserAuthDataAsync(userRequest);
         return Ok(result);
+    }
+
+    [HttpPost("Email")]
+    public async Task<IActionResult> Send([FromServices] IEmailSender emailSender,EmailSendRequest request)
+    {
+        await emailSender.SendEmailAsync(request);
+        return Ok();
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Shop.Application.Emails.Services;
+﻿using Shop.Application.Emails.Models;
+
+namespace Shop.Application.Emails.Services;
 
 public interface IEmailSender
 {
-    Task SendEmailAsync(string email);
+    Task<SenderResponse> SendEmailAsync(EmailSendRequest request);
 }

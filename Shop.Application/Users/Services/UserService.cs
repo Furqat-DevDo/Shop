@@ -47,7 +47,7 @@ public class UserService : IUserService
             throw new UserNotFoundException("User not Found");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"!!!"); ;
+            throw new WrongInputException("Email or Password is wrong !!!"); ;
 
         user.UpdateUserAuthData(request);
         _dbContext.Users.Update(user);

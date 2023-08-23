@@ -1,4 +1,8 @@
 ﻿using EfCore.Middlewares;
+using Shop.Application.Clients;
+using Shop.Application.Emails.Clients;
+using Shop.Application.Emails.Models;
+using Shop.Application.Emails.Services;
 using Shop.Application.Logins.Services;
 using Shop.Application.Registrations.Services;
 using System.Reflection;
@@ -11,6 +15,8 @@ public static class ExtensionServices
     {
         services.AddScoped<IRegistrationService, RegistrationService>();
         services.AddScoped<ILoginService,LoginService>();
+        services.AddScoped<ISenderClient<SenderResponse, EmailSendRequest>, EmailSenderClient>();
+        services.AddScoped<IEmailSender, EmailSender>();
 
         services.AddTransient<GlobalExceptionHandlingMiddleWare>();
 

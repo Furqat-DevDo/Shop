@@ -48,7 +48,7 @@ public static class UserMapper
                 user.FullName = request.NewUserAuthData;
                 break;
             default:
-                throw new InvalidDataGivenException("Invalid Name of user auth data !!!");
+                throw new WrongInputException("Invalid Name of user auth data !!!");
         }
         user.UpdatedTime = DateTime.UtcNow;
     }
