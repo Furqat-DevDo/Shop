@@ -16,13 +16,13 @@ public class PasswordValidator : ValidationAttribute
         if(strValue.Length < 5)
             return false;
 
-        Regex regex = new Regex(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$",RegexOptions.Compiled);
+        Regex regex = new Regex(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$", RegexOptions.Compiled);
         return regex.IsMatch(strValue);
     }
 
     public override string FormatErrorMessage(string message = "")
     {
         return $"The given password {message} is not valid. " +
-            $"Please write minimum 5 characters !!!";
+            $"Please write combination of minimum 5 characters, uppercase letters and numbers!!!";
     }
 }

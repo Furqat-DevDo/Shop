@@ -12,8 +12,7 @@ public class PhoneNumberValidator : ValidationAttribute
         if (value is null)
             return false;
 
-        string pattern = @"^\+?\d{1,4}?[-\s]?\(?\d{1,4}?\)?[-\s]?\d{1,4}[-\s]?\d{1,6}[-\s]?\d{1,6}$";
-        Regex regex = new Regex(pattern);
+        Regex regex = new Regex(@"^\+?\d{1,4}?[-\s]?\(?\d{1,4}?\)?[-\s]?\d{1,4}[-\s]?\d{1,6}[-\s]?\d{1,6}$", RegexOptions.Compiled);
         return regex.IsMatch((string)value);
     }
 

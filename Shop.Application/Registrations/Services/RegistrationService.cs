@@ -1,6 +1,6 @@
 ﻿using Registration.Exceptions;
+using Shop.Application.Registrations.Models;
 using Shop.Application.Users.Mappers;
-using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
 using Shop.Core.Data;
 
@@ -15,7 +15,7 @@ public class RegistrationService : IRegistrationService
         _dbContext = context;
     }
 
-    public async Task<GetUserResponse> CreateUserAsync(CreateUserRequest request)
+    public async Task<GetUserResponse> CreateUserAsync(RegisterRequest request)
     {
         var user = request.CreateUser();
 

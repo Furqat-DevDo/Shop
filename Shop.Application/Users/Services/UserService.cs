@@ -25,7 +25,7 @@ public class UserService : IUserService
         if (user is null)
             throw new UserNotFoundException($"User Not Found");
 
-        // TODO check is uesr real owner.
+        // TODO check is user real owner.
 
         user.UpdateUserPassword(request);
         _dbContext.Users.Update(user);
@@ -36,20 +36,61 @@ public class UserService : IUserService
         return user.ResponseUser();
     }
 
-    public async Task<GetUserResponse> UpdateUserAuthDataAsync(UpdateUserRequest request)
+    public async Task<GetUserResponse> UpdateUserNameAsync(UpdateUserNameRequest request)
     {
         var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f =>
-                                 f.EmailAddress == request.UserAuthData ||
-                                 f.PhoneNumber == request.UserAuthData);
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
+                                      f.PhoneNumber == request.UserAuthData);
 
         if (user is null)
             throw new UserNotFoundException("User not Found");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"!!!"); ;
+            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
 
-        user.UpdateUserAuthData(request);
+        user.UpdateUserName(request);
+        _dbContext.Users.Update(user);
+
+        if (await _dbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveUserChangesException("Internal Server Error");
+
+        return user.ResponseUser();
+    }
+
+    public async Task<GetUserResponse> UpdateUserEmailAsync(UpdateUserEmailRequest request)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
+                                      f.PhoneNumber == request.UserAuthData);
+
+        if (user is null)
+            throw new UserNotFoundException("User not Found");
+
+        if (!user.CheckPassword(request.Password))
+            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
+
+        user.UpdateUserEmail(request);
+        _dbContext.Users.Update(user);
+
+        if (await _dbContext.SaveChangesAsync() <= 0)
+            throw new UnableToSaveUserChangesException("Internal Server Error");
+
+        return user.ResponseUser();
+    }
+
+    public async Task<GetUserResponse> UpdateUserPhoneAsync(UpdateUserPhoneRequest request)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
+                                      f.PhoneNumber == request.UserAuthData);
+
+        if (user is null)
+            throw new UserNotFoundException("User not Found");
+
+        if (!user.CheckPassword(request.Password))
+            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
+
+        user.UpdateUserPhone(request);
         _dbContext.Users.Update(user);
 
         if (await _dbContext.SaveChangesAsync() <= 0)

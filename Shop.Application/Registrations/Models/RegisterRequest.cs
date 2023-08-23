@@ -1,9 +1,9 @@
 ﻿using Registration.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Application.Users.Requests;
+namespace Shop.Application.Registrations.Models;
 
-public class CreateUserRequest
+public class RegisterRequest
 {
     [NameValidator]
     public required string FullName { get; set; }

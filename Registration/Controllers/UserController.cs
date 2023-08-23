@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Logins.Models;
 using Shop.Application.Logins.Services;
+using Shop.Application.Registrations.Models;
 using Shop.Application.Registrations.Services;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Services;
@@ -13,7 +14,7 @@ public class UserController : Controller
 {
     [HttpPost]
     public async Task<IActionResult> CreateUserAsync(
-        CreateUserRequest request,
+        RegisterRequest request,
         [FromServices] IRegistrationService registrationService)
     {
         var response = await registrationService.CreateUserAsync(request);
@@ -47,12 +48,30 @@ public class UserController : Controller
         return Ok(result);
     }
 
-    [HttpPut("UpdateUserAuthData")]
-    public async Task<IActionResult> UpdateUserAuthDataAsync(
-        UpdateUserRequest userRequest,
+    [HttpPut("UpdateUserFullName")]
+    public async Task<IActionResult> UpdateUserNameAsync(
+        UpdateUserNameRequest userRequest,
         [FromServices] IUserService userService)
     {
-        var result = await userService.UpdateUserAuthDataAsync(userRequest);
+        var result = await userService.UpdateUserNameAsync(userRequest);
+        return Ok(result);
+    }
+
+    [HttpPut("UpdateUserEmailAddress")]
+    public async Task<IActionResult> UpdateUserEmailAsync(
+        UpdateUserEmailRequest userRequest,
+        [FromServices] IUserService userService)
+    {
+        var result = await userService.UpdateUserEmailAsync(userRequest);
+        return Ok(result);
+    }
+
+    [HttpPut("UpdateUserPhoneNumber")]
+    public async Task<IActionResult> UpdateUserPhoneAsync(
+        UpdateUserPhoneRequest userRequest,
+        [FromServices] IUserService userService)
+    {
+        var result = await userService.UpdateUserPhoneAsync(userRequest);
         return Ok(result);
     }
 }
