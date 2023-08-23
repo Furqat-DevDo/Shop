@@ -34,11 +34,9 @@ namespace Shop.Core.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EmailAddress")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -49,19 +47,12 @@ namespace Shop.Core.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmailAddress")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });

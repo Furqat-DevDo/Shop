@@ -4,5 +4,5 @@ namespace Shop.Application.Emails.Services;
 
 public interface IEmailSender
 {
-    Task<SenderResponse> SendEmailAsync(EmailSendRequest request);
+    Task<SenderResponse> SendEmailAsync(SendEmailRequest request);
 }

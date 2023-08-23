@@ -3,6 +3,7 @@ using Shop.Application.Emails.Models;
 using Shop.Application.Emails.Services;
 using Shop.Application.Logins.Models;
 using Shop.Application.Logins.Services;
+using Shop.Application.Registrations.Requests;
 using Shop.Application.Registrations.Services;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Services;
@@ -13,12 +14,21 @@ namespace Registration.Controllers;
 [ApiController]
 public class UserController : Controller
 {
-    [HttpPost]
-    public async Task<IActionResult> CreateUserAsync(
-        CreateUserRequest request,
+    [HttpPost("Phone")]
+    public async Task<IActionResult> CreateUserPhoneAsync(
+        CreateUserByPhoneRequest request,
         [FromServices] IRegistrationService registrationService)
     {
-        var response = await registrationService.CreateUserAsync(request);
+        var response = await registrationService.CreateUserByPhoneAsync(request);
+        return Ok(response);
+    }
+
+    [HttpPost("Email")]
+    public async Task<IActionResult> CreateUserEmailAsync(
+        CreateUserByEmailRequest request,
+        [FromServices] IRegistrationService registrationService)
+    {
+        var response = await registrationService.CreateUserByEmailAsync(request);
         return Ok(response);
     }
 
@@ -56,12 +66,5 @@ public class UserController : Controller
     {
         var result = await userService.UpdateUserAuthDataAsync(userRequest);
         return Ok(result);
-    }
-
-    [HttpPost("Email")]
-    public async Task<IActionResult> Send([FromServices] IEmailSender emailSender,EmailSendRequest request)
-    {
-        await emailSender.SendEmailAsync(request);
-        return Ok();
     }
 }

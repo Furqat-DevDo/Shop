@@ -5,6 +5,8 @@ using Shop.Application.Emails.Models;
 using Shop.Application.Emails.Services;
 using Shop.Application.Logins.Services;
 using Shop.Application.Registrations.Services;
+using Shop.Application.SMS.Clients;
+using Shop.Application.SMS.Models;
 using System.Reflection;
 
 namespace Registration;
@@ -15,7 +17,8 @@ public static class ExtensionServices
     {
         services.AddScoped<IRegistrationService, RegistrationService>();
         services.AddScoped<ILoginService,LoginService>();
-        services.AddScoped<ISenderClient<SenderResponse, EmailSendRequest>, EmailSenderClient>();
+        services.AddScoped<ISenderClient<SenderResponse, SendEmailRequest>, EmailSenderClient>();
+        services.AddScoped<ISenderClient<SenderResponse, SendSMSRequest>, SMS_SenderClient>();
         services.AddScoped<IEmailSender, EmailSender>();
 
         services.AddTransient<GlobalExceptionHandlingMiddleWare>();

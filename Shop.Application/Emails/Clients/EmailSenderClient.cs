@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Registration.Services;
 using Shop.Application.Clients;
 using Shop.Application.Emails.Models;
 using Shop.Application.Emails.Options;
+using Shop.Application.Helpers;
 using System.Net.Http.Headers;
 
 namespace Shop.Application.Emails.Clients;
 
-public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,EmailSendRequest>
+public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,SendEmailRequest>
 {
     private readonly ILogger<EmailSenderClient> _logger;
     private readonly IOptions<SendgridOptions> _options;
@@ -21,14 +21,8 @@ public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,EmailSe
         _logger = logger;
     }
 
-    public async Task<SenderResponse> SendAsync(EmailSendRequest sendRequest)
+    public async Task<SenderResponse> SendAsync(SendEmailRequest sendRequest)
     {
-        if (sendRequest is null)
-        {
-            _logger.LogError("Request body was null !!!");
-            throw new WrongInputException(nameof(EmailSendRequest));
-        }
-
         if (_options.Value is null)
         {
             _logger.LogError("Setting not configured !!!");
@@ -37,7 +31,19 @@ public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,EmailSe
 
         var settings = _options.Value;
 
-        var request = new HttpRequestMessage
+        using var request = ToHttpRequest(sendRequest, settings);
+
+        var response = await SendAsync(request);
+
+        if (response is null)
+            throw new Exception("Email server is not working.");
+
+        return await response.ToSenderResponse();
+    }
+
+    private static HttpRequestMessage ToHttpRequest(SendEmailRequest sendRequest, SendgridOptions settings)
+    {
+        return new HttpRequestMessage
         {
             Method = HttpMethod.Post,
             RequestUri = new Uri(settings.RequestUri),
@@ -46,9 +52,31 @@ public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,EmailSe
                 { settings.Headers.Key, settings.Headers.KeyValue },
                 { settings.Headers.HostValue, settings.Headers.HostValue },
             },
-            Content = new StringContent($"{{\"type\": \"stats_notification\"," +
-            $" \"email_to\": \"{sendRequest.To}\",\"frequency\": \"daily\"}}")
-            //Content = new StringContent("{\r\n \"personalizations\": [\r\n {\r\n \"to\": [\r\n {\r\n \"email\": \"john@example.com\"\r\n}\r\n ],\r\n \"subject\": \"Hello, World!\"\r\n }\r\n ],\r\n \"from\":{\r\n\"email\": \"from_address@example.com\"\r\n },\r\n \"content\": [\r\n {\r\n \"type\": \"text/plain\",\r\n  \"value\": \"Hello, World!\"\r\n }\r\n ]\r\n}")
+
+            Content = new StringContent(
+                        $@"
+                {{
+                    ""personalizations"": [
+                        {{
+                            ""to"": [
+                                {{
+                                    ""email"": ""{sendRequest.To}""
+                                }}
+                            ],
+                            ""subject"": ""{sendRequest.Subject}""
+                        }}
+                    ],
+                    ""from"": {{
+                        ""email"": ""{sendRequest.From}""
+                    }},
+                    ""content"": [
+                        {{
+                            ""type"": ""text/plain"",
+                            ""value"": ""{sendRequest.Body}""
+                        }}
+                    ]
+                }}"
+                        )
             {
                 Headers =
                 {
@@ -56,28 +84,5 @@ public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,EmailSe
                 }
             }
         };
-
-
-        using (var response = await SendAsync(request))
-        {
-            var emailResponse = new SenderResponse();
-
-            try
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                emailResponse.IsSuccess = true;
-                emailResponse.StatusCode = (int)response.StatusCode;
-                emailResponse.ExceptionMessage = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                emailResponse.IsSuccess = false;
-                emailResponse.StatusCode = (int)response.StatusCode;
-                emailResponse.ExceptionMessage = ex.Message;
-            }
-
-            return emailResponse;
-        }
     }
 }
