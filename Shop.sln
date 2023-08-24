@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Registration", "Registratio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Core", "Shop.Core\Shop.Core.csproj", "{C3E5C3B9-8A13-4EAF-AD0E-1A40E22B3241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Application", "Shop.Application\Shop.Application.csproj", "{0ADC1F74-EEA7-41B1-BD82-4CA7F8E91316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Application", "Shop.Application\Shop.Application.csproj", "{0ADC1F74-EEA7-41B1-BD82-4CA7F8E91316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

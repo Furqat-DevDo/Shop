@@ -42,22 +42,20 @@ public static class UserMapper
         user.UpdatedTime = DateTime.UtcNow;
     }
 
-    public static void UpdateUserAuthData(this User user, UpdateUserRequest request)
+    public static void UpdateUserName(this User user, UpdateUserNameRequest request)
     {
-        switch (request.NameOfUserAuthData)
-        {
-            case "EmailAddress":
-                user.EmailAddress = request.NewUserAuthData;
-                break;
-            case "PhoneNumber":
-                user.PhoneNumber = request.NewUserAuthData;
-                break;
-            case "FullName":
-                user.FullName = request.NewUserAuthData;
-                break;
-            default:
-                throw new WrongInputException("Invalid Name of user auth data !!!");
-        }
+        user.FullName = request.FullName;
+        user.UpdatedTime = DateTime.UtcNow;
+    }
+
+    public static void UpdateUserEmail(this User user, UpdateUserEmailRequest request)
+    {
+        user.EmailAddress = request.EmailAddress;
+        user.UpdatedTime = DateTime.UtcNow;
+    }
+    public static void UpdateUserPhone(this User user, UpdateUserPhoneRequest request)
+    {
+        user.PhoneNumber = request.PhoneNumber;
         user.UpdatedTime = DateTime.UtcNow;
     }
 
