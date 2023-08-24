@@ -1,38 +1,88 @@
-﻿using Shop.Application.Clients;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Shop.Application.Clients;
+using Shop.Application.Emails.Models;
+using Shop.Application.Emails.Options;
+using Shop.Application.Helpers;
 using System.Net.Http.Headers;
 
 namespace Shop.Application.Emails.Clients;
 
-public class EmailSenderClient : ISenderClient
+public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,SendEmailRequest>
 {
-    public async Task<SenderResponse> SendAsync<SenderResponse,SendEmailRequest>
-        (SendEmailRequest sendRequest) 
+    private readonly ILogger<EmailSenderClient> _logger;
+    private readonly IOptions<SendgridOptions> _options;
+
+    public EmailSenderClient(
+        IOptions<SendgridOptions> options, 
+        ILogger<EmailSenderClient> logger)
     {
-        var client = new HttpClient();
-        var request = new HttpRequestMessage
+        _options = options;
+        _logger = logger;
+    }
+
+    public async Task<SenderResponse> SendAsync(SendEmailRequest sendRequest)
+    {
+        if (_options.Value is null)
         {
-            Method = HttpMethod.Patch,
-            RequestUri = new Uri("https://rapidprod-sendgrid-v1.p.rapidapi.com/alerts/%7Balert_id%7D"),
+            _logger.LogError("Setting not configured !!!");
+            throw new ArgumentNullException(nameof(SendgridOptions));
+        }
+
+        var settings = _options.Value;
+
+        using var request = ToHttpRequest(sendRequest, settings);
+
+        var response = await SendAsync(request);
+
+        if (response is null)
+            throw new Exception("Email server is not working.");
+
+        return await response.ToSenderResponse();
+    }
+
+    private static HttpRequestMessage ToHttpRequest(SendEmailRequest sendRequest, SendgridOptions settings)
+    {
+        return new HttpRequestMessage
+        {
+            Method = HttpMethod.Post,
+            RequestUri = new Uri(settings.RequestUri),
             Headers =
             {
-                { "X-RapidAPI-Key", "12627086e7msh4966fd7c187df4bp16e572jsn2f3576ea8b75" },
-                { "X-RapidAPI-Host", "rapidprod-sendgrid-v1.p.rapidapi.com" },
+                { settings.Headers.Key, settings.Headers.KeyValue },
+                { settings.Headers.HostValue, settings.Headers.HostValue },
             },
-            Content = new StringContent("{\r\n    \"type\": \"stats_notification\",\r\n    \"email_to\": \"example@test.com\",\r\n    \"frequency\": \"daily\"\r\n}")
+
+            Content = new StringContent(
+                        $@"
+                {{
+                    ""personalizations"": [
+                        {{
+                            ""to"": [
+                                {{
+                                    ""email"": ""{sendRequest.To}""
+                                }}
+                            ],
+                            ""subject"": ""{sendRequest.Subject}""
+                        }}
+                    ],
+                    ""from"": {{
+                        ""email"": ""{sendRequest.From}""
+                    }},
+                    ""content"": [
+                        {{
+                            ""type"": ""text/plain"",
+                            ""value"": ""{sendRequest.Body}""
+                        }}
+                    ]
+                }}"
+                        )
             {
                 Headers =
                 {
-                    ContentType = new MediaTypeHeaderValue("application/json")
+                    ContentType = new MediaTypeHeaderValue(settings.ContentType)
                 }
             }
         };
-        using (var response = await client.SendAsync(request))
-        {
-            response.EnsureSuccessStatusCode();
-            var body = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(body);
-        }
-
-        throw new NotImplementedException();
     }
 }

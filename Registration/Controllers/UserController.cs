@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Logins.Models;
 using Shop.Application.Logins.Services;
-using Shop.Application.Registrations.Models;
+using Shop.Application.Registrations.Requests;
 using Shop.Application.Registrations.Services;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
@@ -14,9 +14,9 @@ namespace Registration.Controllers;
 public class UserController : Controller
 {
     /// <summary>
-    /// Here you can register new user.
+    /// Here you can register new user by Phone number.
     /// </summary>
-    /// <param name="registerRequest">Necessary data of new user</param>
+    /// <param name="request">Necessary data of new user</param>
     /// <param name="registrationService">Parameter for connecting registration service</param>
     /// <remarks >
     /// Sample request:
@@ -24,7 +24,6 @@ public class UserController : Controller
     ///         POST
     ///         {
     ///             "fullName": "Sample User",
-    ///             "emailAddress": "user@example.com",
     ///             "phoneNumber": "991234567",
     ///             "password": "Samplepass1"
     ///         }
@@ -33,12 +32,40 @@ public class UserController : Controller
     /// <response code="500">Returns when there was unable to register new user</response>
     [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    [HttpPost("RegisterUser")]
-    public async Task<IActionResult> RegisterUserAsync(
-        RegisterRequest registerRequest,
+    [HttpPost("Phone")]
+    public async Task<IActionResult> CreateUserPhoneAsync(
+        CreateUserByPhoneRequest request,
         [FromServices] IRegistrationService registrationService)
     {
-        var response = await registrationService.CreateUserAsync(registerRequest);
+        var response = await registrationService.CreateUserByPhoneAsync(request);
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Here you can register new user by Email Address.
+    /// </summary>
+    /// <param name="request">Necessary data of new user</param>
+    /// <param name="registrationService">Parameter for connecting registration service</param>
+    /// <remarks >
+    /// Sample request:
+    ///
+    ///         POST
+    ///         {
+    ///             "fullName": "Sample User",
+    ///             "emailAddress": "user@example.com",
+    ///             "password": "Samplepass1"
+    ///         }
+    /// </remarks>
+    /// <response code="200">Returns the newly registered user</response>
+    /// <response code="500">Returns when there was unable to register new user</response>
+    [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [HttpPost("Email")]
+    public async Task<IActionResult> CreateUserEmailAsync(
+        CreateUserByEmailRequest request,
+        [FromServices] IRegistrationService registrationService)
+    {
+        var response = await registrationService.CreateUserByEmailAsync(request);
         return Ok(response);
     }
 

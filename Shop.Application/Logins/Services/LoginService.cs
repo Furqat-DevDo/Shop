@@ -22,7 +22,7 @@ public class LoginService : ILoginService
             throw new UserNotFoundException($"User Not Found !!!");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!");
+            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!");
 
         return user.ResponseUser();
     }
@@ -35,7 +35,7 @@ public class LoginService : ILoginService
             throw new UserNotFoundException($"User Not Found !!!");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!");
+            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!");
 
         return user.ResponseUser();
     }

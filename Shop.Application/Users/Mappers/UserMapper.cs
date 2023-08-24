@@ -1,6 +1,6 @@
 ﻿using Registration.Helpers;
 using Registration.Services;
-using Shop.Application.Registrations.Models;
+using Shop.Application.Registrations.Requests;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
 using Shop.Core.Entities;
@@ -20,14 +20,21 @@ public static class UserMapper
             UpdatedTime = user.UpdatedTime
         };
 
-    public static User CreateUser(this RegisterRequest request)
+    public static User CreateUser(this CreateUserByPhoneRequest request)
         => new User
         {
             FullName = request.FullName,
-            EmailAddress = request.EmailAddress,
             PhoneNumber = request.PhoneNumber,
             Password = PasswordHashingHelper.HashSHA1Password(request.Password)
         };
+
+    public static User CreateUser(this CreateUserByEmailRequest request)
+       => new User
+       {
+           FullName = request.FullName,
+           EmailAddress = request.EmailAddress,
+           Password = PasswordHashingHelper.HashSHA1Password(request.Password)
+       };
 
     public static void UpdateUserPassword(this User user, UpdateUserPassRequest request)
     {

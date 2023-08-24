@@ -9,9 +9,9 @@ public class User
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    public string FullName { get; set; } = null!;
-    public string EmailAddress { get; set; } = null!;
-    public string PhoneNumber { get; set; } = null!;
+    public string? FullName { get; set; } 
+    public string? EmailAddress { get; set; } 
+    public string? PhoneNumber { get; set; }
     [Required]
     public string Password { get; set; } = string.Empty!;
     public DateTime CreatedTime { get; set; } = DateTime.UtcNow;

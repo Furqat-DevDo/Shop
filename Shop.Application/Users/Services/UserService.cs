@@ -88,7 +88,7 @@ public class UserService : IUserService
             throw new UserNotFoundException("User not Found");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
+            throw new WrongInputException("Email or Password is wrong !!!"); ;
 
         user.UpdateUserPhone(request);
         _dbContext.Users.Update(user);

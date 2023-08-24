@@ -1,18 +1,15 @@
 ﻿using Registration.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Application.Registrations.Models;
+namespace Shop.Application.Registrations.Requests;
 
-public class RegisterRequest
+public class CreateUserByEmailRequest
 {
     [NameValidator]
     public required string FullName { get; set; }
 
     [EmailAddress]
     public required string EmailAddress { get; set; }
-
-    [PhoneNumberValidator]
-    public required string PhoneNumber { get; set; }
 
     [PasswordValidator]
     [Display(Name = "Password")]

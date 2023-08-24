@@ -1,6 +1,6 @@
 ﻿namespace Shop.Application.Clients;
 
-public interface ISenderClient
+public interface ISenderClient<TResponse, TRequest>
 {
-    Task <T1> SendAsync<T1,T2>(T2 message);
+    Task<TResponse> SendAsync(TRequest request);
 }
