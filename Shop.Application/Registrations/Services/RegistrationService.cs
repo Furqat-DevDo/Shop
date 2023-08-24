@@ -54,6 +54,8 @@ public class RegistrationService : IRegistrationService
             $" yoki {code} ko'dni kiriting."
         });
 
+        //TODO Verify new user 
+
         return newUser.Entity.ResponseUser();
     }
 
