@@ -46,7 +46,7 @@ public class UserService : IUserService
             throw new UserNotFoundException("User not Found");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
+            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!"); 
 
         user.UpdateUserName(request);
         _dbContext.Users.Update(user);
@@ -67,7 +67,7 @@ public class UserService : IUserService
             throw new UserNotFoundException("User not Found");
 
         if (!user.CheckPassword(request.Password))
-            throw new InvalidDataGivenException($"Password or Email is not correct please check and try again later !!!"); 
+            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!"); 
 
         user.UpdateUserEmail(request);
         _dbContext.Users.Update(user);
