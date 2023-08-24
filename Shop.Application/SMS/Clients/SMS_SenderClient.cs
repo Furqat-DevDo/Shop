@@ -12,7 +12,6 @@ public class SMS_SenderClient :HttpClient,ISenderClient<SenderResponse, SendSMSR
     public SMS_SenderClient(ILogger<SMS_SenderClient> logger)
     {
         _logger = logger;
-
     }
     public Task<SenderResponse> SendAsync(SendSMSRequest request)
     {
