@@ -1,5 +1,4 @@
-﻿
-using Shop.Application.Helpers;
+﻿using Shop.Application.Helpers;
 using Shop.Application.Verification.Requests;
 using Shop.Application.Verification.Responces;
 using Shop.Core.Entities;
@@ -12,19 +11,17 @@ public static class VerificationMapper
         => new VerificationEntity
         {
             EmailAddress = request.EmailAddress,
-            Code = request.VerificationCode,
-            VerificationToken = VerificationTokenHelper.CreateToken(request.EmailAddress, request.VerificationCode)
+            Code = request.Code,
         };
 
     public static void UpadateVerification(this VerificationEntity verification, CreateVerificationRequest request)
     {
-        verification.Code = request.VerificationCode;
-        verification.VerificationToken = VerificationTokenHelper.CreateToken(request.EmailAddress, request.VerificationCode);
+        verification.Code = request.Code;
     }
 
     public static ResponceVerification ResponseVerification(this VerificationEntity verification)
         => new ResponceVerification
         {
-            VerficationToken = verification.VerificationToken,
+            VerficationToken = VerificationTokenHelper.CreateToken(verification.EmailAddress, verification.Code)
         };
 }

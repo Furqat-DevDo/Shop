@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Application.Verification.Requests;
 
@@ -9,5 +8,5 @@ public class CreateVerificationRequest
     public required string EmailAddress { get; set; }
 
     [MinLength(4)]
-    public required string VerificationCode { get; set; }
+    public required string Code { get; set; }
 }

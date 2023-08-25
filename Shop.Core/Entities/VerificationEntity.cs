@@ -10,7 +10,4 @@ public class VerificationEntity
     public string EmailAddress { get; set; } = null!;
 
     public string Code { get; set; } = null!;
-
-    public string VerificationToken { get; set; } = null!;
-    
 }

@@ -57,7 +57,7 @@ public class VerificationService : IVerificationService
         var verification = await _dbContext.Verifications.FirstOrDefaultAsync(v => 
             v.EmailAddress == request.EmailAddress);
 
-        if(verification is null || verification.Code != request.VerificationCode)
+        if(verification is null || verification.Code != request.Code)
         {
             _logger.LogError("Invalid verification request.");
             throw new WrongInputException("Something went wrong. Please try again !!!");
