@@ -3,8 +3,6 @@ using Shop.Application.Logins.Models;
 using Shop.Application.Logins.Services;
 using Shop.Application.Registrations.Requests;
 using Shop.Application.Registrations.Services;
-using Shop.Application.SMS.Models;
-using Shop.Application.SMS.Services;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
 using Shop.Application.Users.Services;
@@ -234,13 +232,5 @@ public class UserController : Controller
     {
         var result = await userService.UpdateUserPhoneAsync(updateRequest);
         return Ok(result);
-    }
-
-    [HttpPost("SMS")]
-    public async Task<IActionResult> OKS([FromServices] ISMS_Sender sender,
-        SendSMSRequest request)
-    {
-        await sender.SendMessageAsync(request);
-        return Ok();
     }
 }
