@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Shop.Application.Logins.Models;
-using Shop.Application.Logins.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Verification;
 using Shop.Application.Verification.Requests;
 

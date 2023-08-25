@@ -66,10 +66,6 @@ namespace Shop.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("VerificationToken")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("EmailAddress");
 
                     b.ToTable("Verifications");

@@ -15,8 +15,7 @@ namespace Shop.Core.Migrations
                 columns: table => new
                 {
                     EmailAddress = table.Column<string>(type: "text", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: false),
-                    VerificationToken = table.Column<string>(type: "text", nullable: false)
+                    Code = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

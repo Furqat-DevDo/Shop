@@ -12,7 +12,7 @@ using Shop.Core.Data;
 namespace Shop.Core.Migrations
 {
     [DbContext(typeof(RegDbContext))]
-    [Migration("20230825150841_Verifications")]
+    [Migration("20230825153034_Verifications")]
     partial class Verifications
     {
         /// <inheritdoc />
@@ -66,10 +66,6 @@ namespace Shop.Core.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("VerificationToken")
                         .IsRequired()
                         .HasColumnType("text");
 

@@ -62,7 +62,7 @@ public class RegistrationService : IRegistrationService
         await _verificationService.CreateVerificationAsync(new CreateVerificationRequest
         {
             EmailAddress = request.EmailAddress,
-            VerificationCode = code
+            Code = code
         });
 
         return newUser.Entity.ResponseUser();
