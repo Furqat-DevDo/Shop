@@ -46,7 +46,7 @@ public class VerificationService : IVerificationService
         return newVerification.Entity.ResponseVerification();
     }
 
-    public async Task<ResponceVerification> VerifyUserAsync(GetVerificationRequest request)
+    public async Task<ResponceVerification> VerifyUserAsync(CreateVerificationRequest request)
     {
         if (request is null)
         {
@@ -57,7 +57,7 @@ public class VerificationService : IVerificationService
         var verification = await _dbContext.Verifications.FirstOrDefaultAsync(v => 
             v.EmailAddress == request.EmailAddress);
 
-        if(verification is null || verification.Code != request.Code)
+        if(verification is null || verification.Code != request.VerificationCode)
         {
             _logger.LogError("Invalid verification request.");
             throw new WrongInputException("Something went wrong. Please try again !!!");

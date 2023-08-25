@@ -12,5 +12,5 @@ namespace Shop.Application.Verification;
 public interface IVerificationService
 {
     public Task<ResponceVerification> CreateVerificationAsync(CreateVerificationRequest request);
-    public Task<ResponceVerification> VerifyUserAsync(GetVerificationRequest request);
+    public Task<ResponceVerification> VerifyUserAsync(CreateVerificationRequest request);
 }

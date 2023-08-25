@@ -7,6 +7,7 @@ using Shop.Application.Registrations.Requests;
 using Shop.Application.Users.Mappers;
 using Shop.Application.Users.Responces;
 using Shop.Application.Verification;
+using Shop.Application.Verification.Requests;
 using Shop.Core.Data;
 
 namespace Shop.Application.Registrations.Services;
@@ -31,11 +32,11 @@ public class RegistrationService : IRegistrationService
 
     public async Task<GetUserResponse> CreateUserByEmailAsync(CreateUserByEmailRequest request)
     {
-        if(_dbContext.Users.Any(u => u.EmailAddress == request.EmailAddress))
+        if (_dbContext.Users.Any(u => u.EmailAddress == request.EmailAddress))
         {
             _logger.LogWarning("User allready exist !!!!");
             throw new WrongInputException("User allready exist !!!!");
-        }            
+        }
 
         var user = request.CreateUser();
 
@@ -63,7 +64,11 @@ public class RegistrationService : IRegistrationService
         });
 
 
-        await _verificationService.CreateVerification(request.EmailAddress, code);
+        await _verificationService.CreateVerificationAsync(new CreateVerificationRequest
+        {
+            EmailAddress = request.EmailAddress,
+            VerificationCode = code
+        });
 
         return newUser.Entity.ResponseUser();
     }
