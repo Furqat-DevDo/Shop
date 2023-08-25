@@ -10,6 +10,7 @@ using Shop.Application.SMS.Clients;
 using Shop.Application.SMS.Models;
 using Shop.Application.SMS.Services;
 using Shop.Application.Users.Services;
+using Shop.Application.Verification;
 using System.Reflection;
 
 namespace Registration;
@@ -25,6 +26,7 @@ public static class ExtensionServices
         services.AddScoped<IEmailSender, EmailSender>();
         services.AddScoped<IUserService,UserService>();
         services.AddScoped<ISMS_Sender,SMS_Sender>();
+        services.AddScoped<IVerificationService,VerificationService>();
 
         services.AddTransient<GlobalExceptionHandlingMiddleWare>();
 

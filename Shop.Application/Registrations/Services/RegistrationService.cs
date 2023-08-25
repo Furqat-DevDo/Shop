@@ -6,6 +6,7 @@ using Shop.Application.Emails.Services;
 using Shop.Application.Registrations.Requests;
 using Shop.Application.Users.Mappers;
 using Shop.Application.Users.Responces;
+using Shop.Application.Verification;
 using Shop.Core.Data;
 
 namespace Shop.Application.Registrations.Services;
@@ -15,24 +16,26 @@ public class RegistrationService : IRegistrationService
     private readonly RegDbContext _dbContext;
     private readonly ILogger<RegistrationService> _logger;
     private readonly IEmailSender _emailSender;
+    private readonly IVerificationService _verificationService;
     public RegistrationService(
         RegDbContext context,
         ILogger<RegistrationService> logger,
-        IEmailSender emailSender)
+        IEmailSender emailSender,
+        IVerificationService verificationService)
     {
         _dbContext = context;
         _logger = logger;
         _emailSender = emailSender;
+        _verificationService = verificationService;
     }
 
     public async Task<GetUserResponse> CreateUserByEmailAsync(CreateUserByEmailRequest request)
     {
-        if(_dbContext.Users.Any(u=> u.EmailAddress == request.EmailAddress))
+        if(_dbContext.Users.Any(u => u.EmailAddress == request.EmailAddress))
         {
             _logger.LogWarning("User allready exist !!!!");
             throw new WrongInputException("User allready exist !!!!");
-        }
-            
+        }            
 
         var user = request.CreateUser();
 
@@ -44,17 +47,23 @@ public class RegistrationService : IRegistrationService
         var code = GeneratedCode();
         var link = "https://www.ilmhub.uz";
 
-        await _emailSender.SendEmailAsync(
-            new SendEmailRequest
+        await _emailSender.SendEmailAsync(new SendEmailRequest
         {
             To = request.EmailAddress,
             From = "ilmhub.uz@gmail.com",
             Subject = "Registratsiya",
-            Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linka bosing:{link}" +
-            $" yoki {code} ko'dni kiriting."
+            Body = $@"<!DOCTYPE html>
+             <html>
+             <body>
+             <p>Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linka bosing:</p>
+             <p><a href=""{link}"">Ro'yxatdan o'tish</a></p>
+             <p>yoki {code} ko'dni kiriting.</p>
+             </body>
+             </html>"
         });
 
-        //TODO Verify new user 
+
+        await _verificationService.CreateVerification(request.EmailAddress, code);
 
         return newUser.Entity.ResponseUser();
     }

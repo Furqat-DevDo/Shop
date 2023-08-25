@@ -8,6 +8,7 @@ public class RegDbContext : DbContext
     public RegDbContext(DbContextOptions<RegDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<VerificationEntity> Verifications { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
