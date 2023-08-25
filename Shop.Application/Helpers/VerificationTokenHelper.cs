@@ -2,8 +2,8 @@
 
 public static class VerificationTokenHelper
 {
-    public static string CreateToken(string email, int code)
+    public static string CreateToken(string email, string code)
     {
-        return "Verified:" + email + code.ToString();
+        return "Verified:" + email + code;
     }
 }

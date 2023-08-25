@@ -45,23 +45,18 @@ public class RegistrationService : IRegistrationService
         if (await _dbContext.SaveChangesAsync() <= 0)
             throw new UnableToSaveUserChangesException("Internal Server Error");
 
-        var code = GeneratedCode();
+        var code = GeneratedCode().ToString();
         var link = "https://www.ilmhub.uz";
 
-        await _emailSender.SendEmailAsync(new SendEmailRequest
-        {
-            To = request.EmailAddress,
-            From = "ilmhub.uz@gmail.com",
-            Subject = "Registratsiya",
-            Body = $@"<!DOCTYPE html>
-             <html>
-             <body>
-             <p>Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linka bosing:</p>
-             <p><a href=""{link}"">Ro'yxatdan o'tish</a></p>
-             <p>yoki {code} ko'dni kiriting.</p>
-             </body>
-             </html>"
-        });
+        await _emailSender.SendEmailAsync(
+            new SendEmailRequest
+            {
+                To = request.EmailAddress,
+                From = "ilmhub.uz@gmail.com",
+                Subject = "Registratsiya",
+                Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linka bosing:{link}" +
+            $" yoki {code} ko'dni kiriting."
+            });
 
 
         await _verificationService.CreateVerificationAsync(new CreateVerificationRequest

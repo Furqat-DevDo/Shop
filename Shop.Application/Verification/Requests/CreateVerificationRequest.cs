@@ -8,6 +8,6 @@ public class CreateVerificationRequest
     [EmailAddress]
     public required string EmailAddress { get; set; }
 
-    [VerificationCode]
-    public required int VerificationCode { get; set; }
+    [MinLength(4)]
+    public required string VerificationCode { get; set; }
 }

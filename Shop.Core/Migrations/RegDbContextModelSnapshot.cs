@@ -62,8 +62,9 @@ namespace Shop.Core.Migrations
                     b.Property<string>("EmailAddress")
                         .HasColumnType("text");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("VerificationToken")
                         .IsRequired()
