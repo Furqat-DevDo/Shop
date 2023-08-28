@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop.Core.Data;
@@ -11,9 +12,11 @@ using Shop.Core.Data;
 namespace Shop.Core.Migrations
 {
     [DbContext(typeof(RegDbContext))]
-    partial class RegDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230828132239_passwordUpdateVerification")]
+    partial class passwordUpdateVerification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Registration.Core.Entities;
 using Registration.Exceptions;
+using Registration.Helpers;
 using Registration.Services;
 using Shop.Application.Verification.Mappers;
 using Shop.Application.Verification.Requests;
@@ -61,13 +62,13 @@ public class VerificationService : IVerificationService
             await _dbContext.PasswordUpdates.AddAsync(new PasswordUpdate
             {
                 EmailAddress = request.Email,
-                NewPassword = newPassword
+                NewPassword = PasswordHashingHelper.PasswordHashing(newPassword)
             });
             await TrySaveDbChanges();
         }
         else
         {
-            passwordUpdate.NewPassword = newPassword;
+            passwordUpdate.NewPassword = PasswordHashingHelper.PasswordHashing(newPassword);
             _dbContext.PasswordUpdates.Update(passwordUpdate);
             await TrySaveDbChanges();
         }

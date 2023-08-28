@@ -5,7 +5,7 @@ namespace Registration.Helpers;
 
 public static class PasswordHashingHelper
 {
-    public static string HashSHA1Password(string value)
+    public static string PasswordHashing(string value)
     {
         var sha1 = SHA256.Create();
 

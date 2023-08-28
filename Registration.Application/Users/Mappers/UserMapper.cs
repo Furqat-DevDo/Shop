@@ -24,12 +24,12 @@ public static class UserMapper
        {
            FullName = request.FullName,
            EmailAddress = request.EmailAddress,
-           Password = PasswordHashingHelper.HashSHA1Password(request.Password)
+           Password = PasswordHashingHelper.PasswordHashing(request.Password)
        };
 
     public static void UpdateUserPassword(this User user, UpdateUserPassRequest request)
     {
-        user.Password = PasswordHashingHelper.HashSHA1Password(request.NewPassword);
+        user.Password = PasswordHashingHelper.PasswordHashing(request.NewPassword);
         user.UpdatedTime = DateTime.UtcNow;
     }
 
@@ -41,5 +41,5 @@ public static class UserMapper
     }
 
     public static bool CheckPassword(this User user, string password)
-        => user.Password == PasswordHashingHelper.HashSHA1Password(password);
+        => user.Password == PasswordHashingHelper.PasswordHashing(password);
 }
