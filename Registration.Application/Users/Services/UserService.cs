@@ -37,10 +37,8 @@ public class UserService : IUserService
     public async Task<GetUserResponse> UpdateUserPasswordAsync(UpdateUserPassRequest request)
     {
         var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.EmailAddress == request.EmailAddress);
-
-        if (user is null)
-            throw new UserNotFoundException($"User Not Found");
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.EmailAddress)
+            ?? throw new UserNotFoundException($"User Not Found");    
 
         var code = CodeGeneratorHelper.GeneratedCode().ToString();
 

@@ -12,7 +12,7 @@ public class RegisterController : ControllerBase
     /// <summary>
     /// Here you can register new user by Email Address.
     /// </summary>
-    /// <param name="request">Necessary data of new user</param>
+    /// <param name="registerRequest">Necessary data of new user</param>
     /// <param name="registrationService">Parameter for connecting registration service</param>
     /// <remarks >
     /// Sample request:

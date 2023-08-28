@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Application.Logins.Models;
-using Shop.Application.Logins.Services;
-using Shop.Application.Registrations.Requests;
-using Shop.Application.Registrations.Services;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
 using Shop.Application.Users.Services;

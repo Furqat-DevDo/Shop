@@ -4,13 +4,14 @@ using Registration.Core.Entities;
 using Registration.Exceptions;
 using Registration.Helpers;
 using Registration.Services;
+using Shop.Application.Verification;
 using Shop.Application.Verification.Mappers;
 using Shop.Application.Verification.Requests;
 using Shop.Application.Verification.Responces;
 using Shop.Core.Data;
 using Shop.Core.Entities;
 
-namespace Shop.Application.Verification;
+namespace Registration.Application.Verification;
 
 public class VerificationService : IVerificationService
 {
@@ -44,7 +45,8 @@ public class VerificationService : IVerificationService
         VerificationRequest request,
         string newPassword)
     {
-        if (request is null) DoIfRequestIsNull();
+        //if (request is null) DoIfRequestIsNull();
+        ArgumentNullException.ThrowIfNull(request,nameof(request));
 
         var verification = await _dbContext.Verifications
             .FirstOrDefaultAsync(v => v.EmailAddress == request.Email);
