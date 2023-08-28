@@ -9,7 +9,7 @@ using Shop.Application.Users.Responces;
 using Shop.Application.Verification;
 using Shop.Application.Verification.Requests;
 using Shop.Core.Data;
-using System.Reflection.Metadata;
+using Registration.Application.Helpers;
 
 namespace Shop.Application.Registrations.Services;
 
@@ -31,7 +31,7 @@ public class RegistrationService : IRegistrationService
         _verificationService = verificationService;
     }
 
-    public async Task<GetUserResponse> CreateUserByEmailAsync(CreateUserByEmailRequest request)
+    public async Task<GetUserResponse> CreateUserAsync(CreateUserRequest request)
     {
         if (_dbContext.Users.Any(u => u.EmailAddress == request.EmailAddress))
         {
@@ -46,9 +46,8 @@ public class RegistrationService : IRegistrationService
         if (await _dbContext.SaveChangesAsync() <= 0)
             throw new UnableToSaveUserChangesException("Internal Server Error");
 
-        var code = GeneratedCode().ToString();
+        var code = CodeGeneratorHelper.GeneratedCode().ToString();
 
-        
         var link = $"http://localhost:5099/api/verifications";
 
         var uriBuilder = new UriBuilder(link);
@@ -60,8 +59,8 @@ public class RegistrationService : IRegistrationService
                 To = request.EmailAddress,
                 From = "ilmhub.uz@gmail.com",
                 Subject = "Registratsiya",
-                Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linka bosing:{resultLink}" +
-            $" yoki {code} ko'dni kiriting."
+                Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linkni bosing: \n{resultLink}\n" +
+                       $" yoki \n\t{code}\n kodni kiriting."
             });
 
 
@@ -73,29 +72,4 @@ public class RegistrationService : IRegistrationService
 
         return newUser.Entity.ResponseUser();
     }
-
-    public async Task<GetUserResponse> CreateUserByPhoneAsync(CreateUserByPhoneRequest request)
-    {
-        if (_dbContext.Users.Any(u => u.PhoneNumber == request.PhoneNumber))
-        {
-            _logger.LogWarning("User allready exist !!!!");
-            throw new WrongInputException("User allready exist !!!!");
-        }
-
-
-        var user = request.CreateUser();
-
-        var newUser = await _dbContext.Users.AddAsync(user);
-
-        if (await _dbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveUserChangesException("Internal Server Error");
-
-        var code = GeneratedCode();
-
-        throw new NotImplementedException();
-    }
-
-    private int GeneratedCode()
-        => new Random().Next(1000, 9999);
-
 }

@@ -7,7 +7,7 @@ namespace Shop.Application.Users.Requests;
 public class UpdateUserPassRequest
 {
     [NotNull]
-    public required string UserAuthData { get; set; }
+    public required string EmailAddress { get; set; }
 
     [PasswordValidator]
     [Display(Name = "Password")]

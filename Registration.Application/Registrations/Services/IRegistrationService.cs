@@ -5,6 +5,5 @@ namespace Shop.Application.Registrations.Services;
 
 public interface IRegistrationService
 {
-    Task<GetUserResponse> CreateUserByPhoneAsync(CreateUserByPhoneRequest request);
-    Task<GetUserResponse> CreateUserByEmailAsync(CreateUserByEmailRequest request);
+    Task<GetUserResponse> CreateUserAsync(CreateUserRequest request);
 }

@@ -15,20 +15,11 @@ public static class UserMapper
             Id = user.Id,
             FullName = user.FullName,
             EmailAddress = user.EmailAddress,
-            PhoneNumber = user.PhoneNumber,
             CreatedTime = user.CreatedTime,
             UpdatedTime = user.UpdatedTime
         };
 
-    public static User CreateUser(this CreateUserByPhoneRequest request)
-        => new User
-        {
-            FullName = request.FullName,
-            PhoneNumber = request.PhoneNumber,
-            Password = PasswordHashingHelper.HashSHA1Password(request.Password)
-        };
-
-    public static User CreateUser(this CreateUserByEmailRequest request)
+    public static User CreateUser(this CreateUserRequest request)
        => new User
        {
            FullName = request.FullName,
@@ -42,20 +33,10 @@ public static class UserMapper
         user.UpdatedTime = DateTime.UtcNow;
     }
 
-    public static void UpdateUserName(this User user, UpdateUserNameRequest request)
+    public static void UpdateUserData(this User user, UpdateUserDataRequest request)
     {
-        user.FullName = request.FullName;
-        user.UpdatedTime = DateTime.UtcNow;
-    }
-
-    public static void UpdateUserEmail(this User user, UpdateUserEmailRequest request)
-    {
-        user.EmailAddress = request.EmailAddress;
-        user.UpdatedTime = DateTime.UtcNow;
-    }
-    public static void UpdateUserPhone(this User user, UpdateUserPhoneRequest request)
-    {
-        user.PhoneNumber = request.PhoneNumber;
+        user.FullName = request.NewFullName;
+        user.EmailAddress = request.NewEmailAddress;
         user.UpdatedTime = DateTime.UtcNow;
     }
 

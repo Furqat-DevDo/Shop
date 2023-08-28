@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Application.Registrations.Requests;
 
-public class CreateUserByEmailRequest
+public class CreateUserRequest
 {
     [NameValidator]
     public required string FullName { get; set; }

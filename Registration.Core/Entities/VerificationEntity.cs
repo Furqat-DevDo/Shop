@@ -8,6 +8,5 @@ public class VerificationEntity
     [Key]
     [ForeignKey("EmailAddress")]
     public string EmailAddress { get; set; } = null!;
-
     public string Code { get; set; } = null!;
 }

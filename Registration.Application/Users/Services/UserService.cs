@@ -1,10 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Registration.Application.Helpers;
 using Registration.Exceptions;
 using Registration.Services;
+using Shop.Application.Emails.Models;
+using Shop.Application.Emails.Services;
 using Shop.Application.Users.Exceptions;
 using Shop.Application.Users.Mappers;
 using Shop.Application.Users.Requests;
 using Shop.Application.Users.Responces;
+using Shop.Application.Verification;
+using Shop.Application.Verification.Requests;
 using Shop.Core.Data;
 
 namespace Shop.Application.Users.Services;
@@ -12,35 +18,66 @@ namespace Shop.Application.Users.Services;
 public class UserService : IUserService
 {
     private readonly RegDbContext _dbContext;
-    public UserService(RegDbContext dbContext)
+    private readonly ILogger<UserService> _logger;
+    private readonly IEmailSender _emailSender;
+    private readonly IVerificationService _verificationService;
+
+    public UserService(
+        RegDbContext context,
+        ILogger<UserService> logger,
+        IEmailSender emailSender,
+        IVerificationService verificationService)
     {
-        _dbContext = dbContext;
+        _dbContext = context;
+        _logger = logger;
+        _emailSender = emailSender;
+        _verificationService = verificationService;
     }
+
     public async Task<GetUserResponse> UpdateUserPasswordAsync(UpdateUserPassRequest request)
     {
         var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
-                                 f.PhoneNumber == request.UserAuthData);
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.EmailAddress);
 
         if (user is null)
             throw new UserNotFoundException($"User Not Found");
 
-        // TODO check is user real owner.
+        var code = CodeGeneratorHelper.GeneratedCode().ToString();
 
-        user.UpdateUserPassword(request);
-        _dbContext.Users.Update(user);
+        var link = $"http://localhost:5099/api/verifications";
 
-        if (await _dbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveUserChangesException("Internal Server Error");
+        var uriBuilder = new UriBuilder(link);
+        var resultLink = uriBuilder.Query = $"email={user.EmailAddress}&code={code}";
+
+        await _emailSender.SendEmailAsync(
+            new SendEmailRequest
+            {
+                To = request.EmailAddress,
+                From = "ilmhub.uz@gmail.com",
+                Subject = "Shaxsni tasdiqlash",
+                Body = $"Shaxsingizni tasdiqlash uchun quyidagi linkni bosing: \n{resultLink}\n" +
+                       $" yoki \n\t{code}\n kodni kiriting."
+            });
+
+        await _verificationService.PasswordUpdateVerificationAsync(new VerificationRequest
+        {
+            Email = request.EmailAddress,
+            Code = code
+        }, request.NewPassword);
+
+        //user.UpdateUserPassword(request);
+        //_dbContext.Users.Update(user);
+
+        //if (await _dbContext.SaveChangesAsync() <= 0)
+        //    throw new UnableToSaveUserChangesException("Internal Server Error");
 
         return user.ResponseUser();
     }
 
-    public async Task<GetUserResponse> UpdateUserNameAsync(UpdateUserNameRequest request)
+    public async Task<GetUserResponse> UpdateUserDataAsync(UpdateUserDataRequest request)
     {
         var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
-                                      f.PhoneNumber == request.UserAuthData);
+            .FirstOrDefaultAsync(f => f.EmailAddress == request.EmailAddress);
 
         if (user is null)
             throw new UserNotFoundException("User not Found");
@@ -48,49 +85,7 @@ public class UserService : IUserService
         if (!user.CheckPassword(request.Password))
             throw new WrongInputException($"Password or Email is not correct please check and try again later !!!"); 
 
-        user.UpdateUserName(request);
-        _dbContext.Users.Update(user);
-
-        if (await _dbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveUserChangesException("Internal Server Error");
-
-        return user.ResponseUser();
-    }
-
-    public async Task<GetUserResponse> UpdateUserEmailAsync(UpdateUserEmailRequest request)
-    {
-        var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
-                                      f.PhoneNumber == request.UserAuthData);
-
-        if (user is null)
-            throw new UserNotFoundException("User not Found");
-
-        if (!user.CheckPassword(request.Password))
-            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!"); 
-
-        user.UpdateUserEmail(request);
-        _dbContext.Users.Update(user);
-
-        if (await _dbContext.SaveChangesAsync() <= 0)
-            throw new UnableToSaveUserChangesException("Internal Server Error");
-
-        return user.ResponseUser();
-    }
-
-    public async Task<GetUserResponse> UpdateUserPhoneAsync(UpdateUserPhoneRequest request)
-    {
-        var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.EmailAddress == request.UserAuthData ||
-                                      f.PhoneNumber == request.UserAuthData);
-
-        if (user is null)
-            throw new UserNotFoundException("User not Found");
-
-        if (!user.CheckPassword(request.Password))
-            throw new WrongInputException("Email or Password is wrong !!!"); ;
-
-        user.UpdateUserPhone(request);
+        user.UpdateUserData(request);
         _dbContext.Users.Update(user);
 
         if (await _dbContext.SaveChangesAsync() <= 0)

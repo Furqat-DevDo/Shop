@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Registration.Core.Entities;
 using Shop.Core.Entities;
 
 namespace Shop.Core.Data;
@@ -9,6 +10,7 @@ public class RegDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<VerificationEntity> Verifications { get; set; }
+    public DbSet<PasswordUpdate> PasswordUpdates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -25,6 +27,8 @@ public class RegDbContext : DbContext
         {
             u.HasQueryFilter(f => f.IsDeleted != true);
         });
+
+        //modelBuilder.Entity<User>().HasIndex(u => u.EmailAddress).IsUnique(true);
     }
 
 }
