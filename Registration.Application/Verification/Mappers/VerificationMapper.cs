@@ -20,8 +20,8 @@ public static class VerificationMapper
         verification.Code = request.Code;
     }
 
-    public static ResponceVerification ResponseVerification(this VerificationEntity verification)
-        => new ResponceVerification
+    public static ResponseVerification ResponseVerification(this VerificationEntity verification)
+        => new ResponseVerification
         {
             VerficationToken = VerificationTokenHelper.CreateToken(verification.EmailAddress, verification.Code)
         };

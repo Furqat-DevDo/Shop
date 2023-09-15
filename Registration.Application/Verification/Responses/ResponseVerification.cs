@@ -1,6 +1,6 @@
 ﻿namespace Shop.Application.Verification.Responces;
 
-public class ResponceVerification
+public class ResponseVerification
 {
     public string VerficationToken { get; set; } = null!;
 }

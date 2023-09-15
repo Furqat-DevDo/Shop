@@ -6,5 +6,4 @@ namespace Shop.Application.Logins.Services;
 public interface ILoginService
 {
     Task<GetUserResponse> GetUserByEmailAddressAsync(LoginByEmail request);
-    Task<GetUserResponse> GetUserByPhoneNumberAsync(LoginPhoneRequest request);
 }

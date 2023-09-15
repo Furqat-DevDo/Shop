@@ -5,6 +5,10 @@ namespace Shop.Application.Verification;
 
 public interface IVerificationService
 {
-    public Task<ResponceVerification> CreateVerificationAsync(VerificationRequest request);
-    public Task<ResponceVerification> VerifyUserAsync(VerificationRequest request);
+    public Task<ResponseVerification> CreateVerificationAsync(
+        VerificationRequest request);
+    public Task<ResponseVerification> VerifyUserAsync(
+        VerificationRequest request);
+    public Task<ResponseVerification> PasswordUpdateVerificationAsync(
+        VerificationRequest request, string newPassword);
 }

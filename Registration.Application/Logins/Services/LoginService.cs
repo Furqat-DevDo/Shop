@@ -26,17 +26,4 @@ public class LoginService : ILoginService
 
         return user.ResponseUser();
     }
-
-    public async Task<GetUserResponse> GetUserByPhoneNumberAsync(LoginPhoneRequest request)
-    {
-        var user = await _dbContext.Users
-            .FirstOrDefaultAsync(f => f.PhoneNumber == request.PhoneNumber);
-        if (user is null)
-            throw new UserNotFoundException($"User Not Found !!!");
-
-        if (!user.CheckPassword(request.Password))
-            throw new WrongInputException($"Password or Email is not correct please check and try again later !!!");
-
-        return user.ResponseUser();
-    }
 }
