@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Shop.Application.Clients;
-using Shop.Application.Emails.Models;
-using Shop.Application.Emails.Options;
-using Shop.Application.Helpers;
 using System.Net.Http.Headers;
+using Registration.Application.Clients;
+using Registration.Application.Emails.Clients;
+using Registration.Application.Emails.Models;
+using Registration.Application.Emails.Options;
+using Registration.Application.Helpers;
 
-namespace Shop.Application.Emails.Clients;
+namespace Registration.Application.Emails.Clients;
 
 public class EmailSenderClient : HttpClient,ISenderClient<SenderResponse,SendEmailRequest>
 {

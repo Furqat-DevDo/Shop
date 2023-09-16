@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Registration.Exceptions
+namespace Registration.Application.Exceptions
 {
     public class BaseInvalidDataException : Exception
     {

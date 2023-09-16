@@ -1,6 +1,6 @@
-﻿using Shop.Application.Emails.Models;
+﻿using Registration.Application.Emails.Models;
 
-namespace Shop.Application.Helpers;
+namespace Registration.Application.Helpers;
 
 public static class HttpHelper
 {

@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.Emails.Models;
+﻿namespace Registration.Application.Emails.Models;
 
 public class SenderResponse
 {

@@ -1,7 +1,7 @@
-﻿using Shop.Application.Users.Requests;
-using Shop.Application.Users.Responces;
+﻿using Registration.Application.Users.Requests;
+using Registration.Application.Users.Responces;
 
-namespace Shop.Application.Users.Services;
+namespace Registration.Application.Users.Services;
 
 public interface IUserService
 {

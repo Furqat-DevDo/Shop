@@ -1,4 +1,6 @@
-﻿namespace Shop.Application.Emails.Options;
+﻿using Registration.Application.Emails.Options;
+
+namespace Registration.Application.Emails.Options;
 
 public class SendgridOptions
 {

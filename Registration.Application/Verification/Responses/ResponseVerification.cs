@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.Verification.Responces;
+﻿namespace Registration.Application.Verification.Responses;
 
 public class ResponseVerification
 {

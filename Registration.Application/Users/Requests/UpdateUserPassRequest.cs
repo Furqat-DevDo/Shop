@@ -1,8 +1,8 @@
-﻿using Registration.Attributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using Registration.Application.Attributes;
 
-namespace Shop.Application.Users.Requests;
+namespace Registration.Application.Users.Requests;
 
 public class UpdateUserPassRequest
 {

@@ -1,7 +1,7 @@
-﻿using Shop.Application.Verification.Requests;
-using Shop.Application.Verification.Responces;
+﻿using Registration.Application.Verification.Requests;
+using Registration.Application.Verification.Responses;
 
-namespace Shop.Application.Verification;
+namespace Registration.Application.Verification;
 
 public interface IVerificationService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Shop.Application.Verification
+namespace Registration.Application.Exceptions
 {
     [Serializable]
     internal class BaseInternalServerError : Exception

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Application.Verification.Requests;
+namespace Registration.Application.Verification.Requests;
 
 public class VerificationRequest
 {

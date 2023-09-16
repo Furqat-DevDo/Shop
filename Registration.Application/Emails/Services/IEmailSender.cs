@@ -1,6 +1,6 @@
-﻿using Shop.Application.Emails.Models;
+﻿using Registration.Application.Emails.Models;
 
-namespace Shop.Application.Emails.Services;
+namespace Registration.Application.Emails.Services;
 
 public interface IEmailSender
 {

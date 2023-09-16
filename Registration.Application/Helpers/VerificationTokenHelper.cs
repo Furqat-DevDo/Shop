@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.Helpers;
+﻿namespace Registration.Application.Helpers;
 
 public static class VerificationTokenHelper
 {

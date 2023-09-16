@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Registration.Core.Entities;
-using Registration.Exceptions;
-using Registration.Helpers;
-using Registration.Services;
-using Shop.Application.Verification;
-using Shop.Application.Verification.Mappers;
-using Shop.Application.Verification.Requests;
-using Shop.Application.Verification.Responces;
-using Shop.Core.Data;
-using Shop.Core.Entities;
+using Registration.Application.Exceptions;
+using Registration.Application.Helpers;
+using Registration.Application.Verification.Mappers;
+using Registration.Application.Verification.Requests;
+using Registration.Application.Verification.Responses;
+using Registration.Core.Data;
 
 namespace Registration.Application.Verification;
 

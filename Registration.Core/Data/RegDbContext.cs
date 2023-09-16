@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Registration.Core.Entities;
-using Shop.Core.Entities;
+using Registration.Core.Data;
 
-namespace Shop.Core.Data;
+namespace Registration.Core.Data;
 
 public class RegDbContext : DbContext
 {

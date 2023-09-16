@@ -1,7 +1,7 @@
-﻿using Shop.Application.Registrations.Requests;
-using Shop.Application.Users.Responces;
+﻿using Registration.Application.Registrations.Requests;
+using Registration.Application.Users.Responces;
 
-namespace Shop.Application.Registrations.Services;
+namespace Registration.Application.Registrations.Services;
 
 public interface IRegistrationService
 {

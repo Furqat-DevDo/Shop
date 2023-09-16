@@ -1,9 +1,9 @@
-﻿using Shop.Application.Helpers;
-using Shop.Application.Verification.Requests;
-using Shop.Application.Verification.Responces;
-using Shop.Core.Entities;
+﻿using Registration.Application.Helpers;
+using Registration.Application.Verification.Requests;
+using Registration.Application.Verification.Responses;
+using Registration.Core.Entities;
 
-namespace Shop.Application.Verification.Mappers;
+namespace Registration.Application.Verification.Mappers;
 
 public static class VerificationMapper
 {

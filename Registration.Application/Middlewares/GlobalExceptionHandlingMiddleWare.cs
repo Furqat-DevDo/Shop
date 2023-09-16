@@ -1,11 +1,10 @@
-﻿using EfCore.Exceptions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Registration.Exceptions;
 using System.Net;
 using System.Text.Json;
+using Registration.Application.Exceptions;
 
-namespace EfCore.Middlewares;
+namespace Registration.Application.Middlewares;
 
 public class GlobalExceptionHandlingMiddleWare : IMiddleware
 {

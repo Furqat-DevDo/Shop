@@ -1,7 +1,7 @@
-﻿using Registration.Exceptions;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using Registration.Application.Exceptions;
 
-namespace Registration.Services
+namespace Registration.Application.Exceptions
 {
     [Serializable]
     internal class WrongInputException : BaseInvalidDataException

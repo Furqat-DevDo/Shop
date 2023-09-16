@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Shop.Core.Entities;
+namespace Registration.Core.Entities;
 
 public class User
 {

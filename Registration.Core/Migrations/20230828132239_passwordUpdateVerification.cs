@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Shop.Core.Migrations
+namespace Registration.Core.Migrations
 {
     /// <inheritdoc />
     public partial class passwordUpdateVerification : Migration

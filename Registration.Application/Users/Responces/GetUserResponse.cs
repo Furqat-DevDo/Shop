@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.Users.Responces;
+﻿namespace Registration.Application.Users.Responces;
 
 public class GetUserResponse
 {

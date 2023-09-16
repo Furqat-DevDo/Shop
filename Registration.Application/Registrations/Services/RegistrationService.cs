@@ -1,17 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
-using Registration.Exceptions;
-using Registration.Services;
-using Shop.Application.Emails.Models;
-using Shop.Application.Emails.Services;
-using Shop.Application.Registrations.Requests;
-using Shop.Application.Users.Mappers;
-using Shop.Application.Users.Responces;
-using Shop.Application.Verification;
-using Shop.Application.Verification.Requests;
-using Shop.Core.Data;
 using Registration.Application.Helpers;
+using Registration.Application.Emails.Models;
+using Registration.Application.Emails.Services;
+using Registration.Application.Exceptions;
+using Registration.Application.Registrations.Requests;
+using Registration.Application.Registrations.Services;
+using Registration.Application.Users.Mappers;
+using Registration.Application.Users.Responces;
+using Registration.Application.Verification;
+using Registration.Application.Verification.Requests;
+using Registration.Core.Data;
 
-namespace Shop.Application.Registrations.Services;
+namespace Registration.Application.Registrations.Services;
 
 public class RegistrationService : IRegistrationService
 {

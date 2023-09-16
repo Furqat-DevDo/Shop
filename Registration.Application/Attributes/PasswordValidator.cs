@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Registration.Attributes;
+namespace Registration.Application.Attributes;
 
 public class PasswordValidator : ValidationAttribute
 {

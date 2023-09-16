@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Registration.Services;
-using Shop.Application.Clients;
-using Shop.Application.Emails.Models;
 using System.Text.Json;
+using Registration.Application.Clients;
+using Registration.Application.Emails.Models;
+using Registration.Application.Emails.Services;
+using Registration.Application.Exceptions;
 
-namespace Shop.Application.Emails.Services;
+namespace Registration.Application.Emails.Services;
 
 public class EmailSender : IEmailSender
 {

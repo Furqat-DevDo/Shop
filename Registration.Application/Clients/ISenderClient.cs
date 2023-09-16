@@ -1,4 +1,4 @@
-﻿namespace Shop.Application.Clients;
+﻿namespace Registration.Application.Clients;
 
 public interface ISenderClient<TResponse, TRequest>
 {

@@ -1,7 +1,7 @@
-﻿using Shop.Application.Logins.Models;
-using Shop.Application.Users.Responces;
+﻿using Registration.Application.Logins.Models;
+using Registration.Application.Users.Responces;
 
-namespace Shop.Application.Logins.Services;
+namespace Registration.Application.Logins.Services;
 
 public interface ILoginService
 {

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Shop.Core.Data;
+using Registration.Core.Data;
 
 #nullable disable
 
-namespace Shop.Core.Migrations
+namespace Registration.Core.Migrations
 {
     [DbContext(typeof(RegDbContext))]
     [Migration("20230823154814_InitialDb")]

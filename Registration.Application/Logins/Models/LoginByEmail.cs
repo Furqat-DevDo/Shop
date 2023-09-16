@@ -1,8 +1,8 @@
-﻿using Registration.Attributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using Registration.Application.Attributes;
 
-namespace Shop.Application.Logins.Models;
+namespace Registration.Application.Logins.Models;
 
 public class LoginByEmail
 {

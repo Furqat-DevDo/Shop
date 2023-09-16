@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Registration.Application.Attributes;
 
-namespace Registration.Attributes;
+namespace Registration.Application.Attributes;
 
 public class NameValidator : ValidationAttribute
 {

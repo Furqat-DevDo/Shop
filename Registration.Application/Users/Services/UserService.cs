@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Registration.Application.Helpers;
-using Registration.Exceptions;
-using Registration.Services;
-using Shop.Application.Emails.Models;
-using Shop.Application.Emails.Services;
-using Shop.Application.Users.Exceptions;
-using Shop.Application.Users.Mappers;
-using Shop.Application.Users.Requests;
-using Shop.Application.Users.Responces;
-using Shop.Application.Verification;
-using Shop.Application.Verification.Requests;
-using Shop.Core.Data;
+using Registration.Application.Emails.Models;
+using Registration.Application.Emails.Services;
+using Registration.Application.Exceptions;
+using Registration.Application.Users.Exceptions;
+using Registration.Application.Users.Mappers;
+using Registration.Application.Users.Requests;
+using Registration.Application.Users.Responces;
+using Registration.Application.Users.Services;
+using Registration.Application.Verification;
+using Registration.Application.Verification.Requests;
+using Registration.Core.Data;
 
-namespace Shop.Application.Users.Services;
+namespace Registration.Application.Users.Services;
 
 public class UserService : IUserService
 {

@@ -1,7 +1,7 @@
-﻿using EfCore.Exceptions;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using Registration.Application.Exceptions;
 
-namespace Shop.Application.Users.Exceptions
+namespace Registration.Application.Users.Exceptions
 {
     [Serializable]
     internal class UserNotFoundException : BaseNotFoundException

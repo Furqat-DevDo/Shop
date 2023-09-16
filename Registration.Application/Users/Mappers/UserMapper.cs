@@ -1,11 +1,10 @@
-﻿using Registration.Helpers;
-using Registration.Services;
-using Shop.Application.Registrations.Requests;
-using Shop.Application.Users.Requests;
-using Shop.Application.Users.Responces;
-using Shop.Core.Entities;
+﻿using Registration.Application.Helpers;
+using Registration.Application.Registrations.Requests;
+using Registration.Application.Users.Requests;
+using Registration.Application.Users.Responces;
+using Registration.Core.Entities;
 
-namespace Shop.Application.Users.Mappers;
+namespace Registration.Application.Users.Mappers;
 
 public static class UserMapper
 {

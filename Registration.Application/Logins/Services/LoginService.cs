@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Registration.Services;
-using Shop.Application.Logins.Models;
-using Shop.Application.Users.Exceptions;
-using Shop.Application.Users.Mappers;
-using Shop.Application.Users.Responces;
-using Shop.Core.Data;
+using Registration.Application.Exceptions;
+using Registration.Application.Logins.Models;
+using Registration.Application.Logins.Services;
+using Registration.Application.Users.Exceptions;
+using Registration.Application.Users.Mappers;
+using Registration.Application.Users.Responces;
+using Registration.Core.Data;
 
-namespace Shop.Application.Logins.Services;
+namespace Registration.Application.Logins.Services;
 public class LoginService : ILoginService
 {
     private readonly RegDbContext _dbContext;
