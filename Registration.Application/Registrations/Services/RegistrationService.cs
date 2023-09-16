@@ -46,29 +46,29 @@ public class RegistrationService : IRegistrationService
         if (await _dbContext.SaveChangesAsync() <= 0)
             throw new UnableToSaveUserChangesException("Internal Server Error");
 
-        var code = CodeGeneratorHelper.GeneratedCode().ToString();
+        //var code = CodeGeneratorHelper.GeneratedCode().ToString();
 
-        var link = $"http://localhost:5099/api/verifications";
+        //var link = $"http://localhost:5099/api/verifications";
 
-        var uriBuilder = new UriBuilder(link);
-        var resultLink = uriBuilder.Query = $"email={user.EmailAddress}&code={code}";
+        //var uriBuilder = new UriBuilder(link);
+        //var resultLink = uriBuilder.Query = $"email={user.EmailAddress}&code={code}";
 
-        await _emailSender.SendEmailAsync(
-            new SendEmailRequest
-            {
-                To = request.EmailAddress,
-                From = "ilmhub.uz@gmail.com",
-                Subject = "Registratsiya",
-                Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linkni bosing: \n{resultLink}\n" +
-                       $" yoki \n\t{code}\n kodni kiriting."
-            });
+        //await _emailSender.SendEmailAsync(
+        //    new SendEmailRequest
+        //    {
+        //        To = request.EmailAddress,
+        //        From = "ilmhub.uz@gmail.com",
+        //        Subject = "Registratsiya",
+        //        Body = $"Siz bizning platformadan ro'yxatdan o'tish uchun quyidagi linkni bosing: \n{resultLink}\n" +
+        //               $" yoki \n\t{code}\n kodni kiriting."
+        //    });
 
 
-        await _verificationService.CreateVerificationAsync(new VerificationRequest
-        {
-            Email = request.EmailAddress,
-            Code = code
-        });
+        //await _verificationService.CreateVerificationAsync(new VerificationRequest
+        //{
+        //    Email = request.EmailAddress,
+        //    Code = code
+        //});
 
         return newUser.Entity.ResponseUser();
     }

@@ -7,4 +7,5 @@ public interface IUserService
 {
     Task<GetUserResponse> UpdateUserPasswordAsync(UpdateUserPassRequest request);
     Task<GetUserResponse> UpdateUserDataAsync(UpdateUserDataRequest request);
+    Task<IEnumerable<GetUserResponse>> GetAllAsync();
 }

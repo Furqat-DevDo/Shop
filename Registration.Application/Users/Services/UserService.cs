@@ -91,4 +91,13 @@ public class UserService : IUserService
 
         return user.ResponseUser();
     }
+
+    public async Task<IEnumerable<GetUserResponse>> GetAllAsync()
+    {
+        var users = await _dbContext.Users.ToListAsync();
+        return !users.Any()
+            ? Enumerable.Empty<GetUserResponse>()
+            : users.Select(u => u.ResponseUser());
+
+    }
 }

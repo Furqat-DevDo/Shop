@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Registration.Core.Entities;
-using Registration.Core.Data;
+
 
 namespace Registration.Core.Data;
 
@@ -15,8 +15,8 @@ public class RegDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        //optionsBuilder.EnableSensitiveDataLogging(true);
-        //optionsBuilder.LogTo(s =>Console.WriteLine(s));
+        optionsBuilder.EnableSensitiveDataLogging(true);
+        optionsBuilder.LogTo(s => Console.WriteLine(s));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
